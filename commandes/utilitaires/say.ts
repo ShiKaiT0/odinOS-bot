@@ -1,36 +1,128 @@
-import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
-import DiscordJS, { Intents, Message } from 'discord.js'
+import DiscordJS, { MessageEmbed } from "discord.js"
 
 export default{
 
     category: "Utilitaires",
-    description: "Permet de faire parler le bot, pour une action Rôle-Play",
+    description: "Faire en sorte que le bot parle :D",
     slash: true,
     testOnly: true,
     options: [
         {
-            name:"contenu",
-            description: "Ce que va afficher le message système. Attention, <1024 caractères.",
+            name: "type",
+            description: "Type d'embed : Simple message, message administratif, narration, message système.",
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
             required: true,
-            max_length: 1024,
-            minLength: 1,
+            choices: [
+                {
+                   name:"Message Vide",
+                   value : "messV",
+                },
+                {
+                    name: "Message Administratif",
+                    value: "messAdmin",
+                },
+                {
+                    name: "Message Narration",
+                    value: "messNara",
+                },
+                {
+                    name: "Message Système",
+                    value: "messSystem",
+                }
+            ],
         },
+        {
+            name: "contenu",
+            description: "Le contenu du message en lui-même.",
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
+            required:true,
+            maxLength: 1024
+        },
+        {
+            name: "titre",
+            description: "Si vous voulez ajouter un titre en particulier à votre message.",
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
+            max_length:256
+        },
+        {
+            name: "messagefin",
+            description : "Avoir le message de 'merci de bien lire l'intégralité' ou pas",
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.BOOLEAN,
+        }
     ],
+ 
 
-    callback: ({interaction})=>{
+    callback: ({interaction}) => {
+
+        if(interaction.options.getString("type") == "messV"){
+            return(interaction.options.getString("contenu"))
+        }
 
         const embed = new MessageEmbed()
-            .setAuthor({name: "Narration", iconURL:"https://cdn.discordapp.com/attachments/902209900682313758/1011034495325048883/Photo_1661119466325.jpg?size=4096"})
-            .setTitle("[ Message Système ]")
-            .setFields({
-                name: "Contenu : ",
-                value: interaction.options.getString("contenu")??'',
-            })
-            .setThumbnail("https://cdn3.emoji.gg/emojis/9707-achtungicon.png")
 
-        return embed
+        if(interaction.options.getString("type") == "messAdmin"){
+            embed.setColor("DARK_RED")
+                .setAuthor({name: "Administration du Corps Ingénieur", iconURL: "https://cdn3.emoji.gg/emojis/8995-staff-icon.png"})
+                .setFields({
+                    name: "Veuillez prendre connaissance du message ci-dessous.",
+                    value: interaction.options.getString("contenu")??'',
+                })
+                    embed.setTitle(interaction.options.getString("titre")??"A votre attention :")
+                
+                if((interaction.options.getBoolean("messagefin") ?? true) === true){
+                    embed.setFooter({text: "Merci de bien lire l'intégralité du message."})
+                } 
+
+                interaction.reply({
+                    embeds: [embed],
+                })
+        }       
+        
+        if(interaction.options.getString("type") == "messNara"){
+
+            embed.setColor("YELLOW")
+            .setAuthor({name: "Narration", iconURL: "https://cdn3.emoji.gg/emojis/3389-yellowbook.gif"})
+            .setFields(
+                {
+                    
+                    name: interaction.options.getString("titre")??"L'action continue...",
+                    value: interaction.options.getString("contenu")??""
+                }
+            )
+
+            interaction.reply({
+                embeds: [embed],
+            })
+
+        }
+
+        if(interaction.options.getString("type") == "messSystem"){
+            embed.setAuthor({name: "Système", iconURL: "https://cdn3.emoji.gg/emojis/4887-databaseerror.png"})
+            .setColor("BLUE")
+            .setTitle(interaction.options.getString("titre")??"Informations Système.")
+            .setFields(
+                {
+                    name: "Reçu :",
+                    value: interaction.options.getString("contenu")??""
+                }
+            )
+
+            if((interaction.options.getBoolean("messagefin") ?? true) === true){
+                embed.setFooter({text: "Merci de bien lire l'intégralité du message."})
+            } 
+
+            
+
+            interaction.reply({
+                embeds:[embed]
+            })
+
+        }
+
+
     }
+
+
 
 } as ICommand
