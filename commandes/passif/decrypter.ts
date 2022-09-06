@@ -17,14 +17,15 @@ export default{
             name: "data",
             description: "Masse de Data en Gb.",
             required: true,
-            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
-            maxValue: ""
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.INTEGER,
+            max_value: 150,
 
         }
     ],
 
     callback : async({interaction}) => {
         let rand = 0
+        let timeout = 0
         const embed = new MessageEmbed()
             .setTitle("Décryptage lancé..")
             .setThumbnail("https://tenor.com/view/based-hack-hacker-security-cryptography-gif-19828021")
@@ -54,13 +55,27 @@ export default{
             })
         }
 
+
+        data = interaction.options.getInteger("data")
+        if(data >= 150){timeout = (60*3)*1000}
+        if(data > 99 && data < 150){timeout = (60*2 + 30)*1000}
+        if(data > 79 && data < 100){timeout = 120000}
+        if(data > 59 && data < 80){timeout = 90000}
+        if(data < 60){timeout = 60000}
+
+
+        embed.setFooter({text: "Temps d'attente estimé : " + timeout/1000 + "s, " + (timeout/1000)/60 +"mn."})
+
+
         const newMessage = await interaction.reply({
             embeds: [embed],
             fetchReply: true
         })
 
-        timeout = Math.floor(Math.random() * 16)
-        await new Promise(resolve => setTimeout(resolve, timeout*1000))
+
+
+        let randWaitTime = Math.floor(Math.random() * 16)
+        await new Promise(resolve => setTimeout(resolve, timeout))
 
         const newEmbed = (newMessage.embeds[0] as MessageEmbed)
         .setColor("GREEN")
@@ -70,6 +85,11 @@ export default{
                 value: "Effectué."
             }
         )
+        .setFooter({text: "Fin d'attente."})
+
+        interaction.editReply({
+            embeds: [newEmbed]
+        })
 
 
     }
@@ -77,9 +97,7 @@ export default{
 
 
     /**
-     * TODO : Faire attendre un temps aléatoire (4 < t < 15) 
-     * Check si roll true, alors l'effectuer, puis ensuite continuer. Autrement, autoriser directement. 
-     * Ajouter en paramètre la masse de data et générer le temps approp.
+     * Simplement checker les erreurs ect.
      */
 
 } as ICommand
