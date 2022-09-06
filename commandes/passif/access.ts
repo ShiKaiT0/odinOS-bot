@@ -34,6 +34,11 @@ export default{
             name: "fichier",
             description: "le fichier en question",
             type: DiscordJS.ApplicationCommandOptionTypes.STRING,
+        },
+        {
+            name: "accès",
+            description: "les rôles qui auront accès au channel. (faites /accesGuide)", // TODO: faire la commande expliquant comment ça marche.
+            required: true,
         }
     ],
 
@@ -43,7 +48,13 @@ export default{
         embed.setAuthor({name: interaction.member?.user.username, iconURL: interaction.user.avatarURL()??''})
 
         if(interaction.options.getString("type") == "defAC"){
-            
+            embed.setThumbnail("https://cdn3.emoji.gg/emojis/8383-blocked.png")
+                 .setFields(
+                    {
+                        name: "Définition d'accès",
+                        value: ""
+                    }
+                 )
         }
 
         if(interaction.options.getString("type") == "askAC"){
@@ -55,5 +66,12 @@ export default{
         }
     }
 
+
+    /**
+     * TODO : Ajouter les rôles à choisir, ajouter un changement de permission dans le channel actif, (sauf si un fichier est sélectionné)
+     * 
+     * 
+     * https://cdn3.emoji.gg/emojis/9800-hnt.png
+    */
 
 }as ICommand
