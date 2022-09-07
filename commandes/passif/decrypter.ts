@@ -56,7 +56,7 @@ export default{
         }
 
 
-        data = interaction.options.getInteger("data")
+        let data = interaction.options.getInteger("data")??1
         if(data >= 150){timeout = (60*3)*1000}
         if(data > 99 && data < 150){timeout = (60*2 + 30)*1000}
         if(data > 79 && data < 100){timeout = 120000}

@@ -33,7 +33,7 @@ export default{
         {
             name: "fichier",
             description: "le fichier en question",
-            type: DiscordJS.ApplicationCommandOptionTypes.STRING,
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
         },
         {
             name: "accès",
@@ -45,7 +45,9 @@ export default{
 
     callback: ({interaction}) => {
 
-        embed.setAuthor({name: interaction.member?.user.username, iconURL: interaction.user.avatarURL()??''})
+        const embed = new MessageEmbed()
+
+        embed.setAuthor({name: interaction.member?.user.username??'', iconURL: interaction.user.avatarURL()??''})
 
         if(interaction.options.getString("type") == "defAC"){
             embed.setThumbnail("https://cdn3.emoji.gg/emojis/8383-blocked.png")
