@@ -29,8 +29,8 @@ export default{
         let timeout = 0
         const embed = new MessageEmbed()
             .setTitle("Décryptage lancé..")
-            .setThumbnail("https://tenor.com/view/based-hack-hacker-security-cryptography-gif-19828021")
-            .setAuthor({name: "Datapd républicain", iconURL:"https://static.wikia.nocookie.net/frstarwars/images/8/8e/Datapad.png/revision/latest?cb=20161204211102"})
+            .setThumbnail("https://cdn3.emoji.gg/emojis/2280-servers.png")
+            .setAuthor({name: "Datapd républicain", iconURL:"https://cdn3.emoji.gg/emojis/4106-hiddeneye.png"})
             .setColor("YELLOW")
 
         if((interaction.options.getBoolean("roll") ?? true) === true){rand = Math.floor(Math.random() * 101)}
@@ -95,10 +95,5 @@ export default{
 
     }
 
-
-
-    /**
-     * Simplement checker les erreurs ect.
-     */
 
 } as ICommand
