@@ -1,5 +1,5 @@
 import { ICommand } from "wokcommands";
-import DiscordJS, { MessageEmbed } from "discord.js"
+import DiscordJS, { MessageEmbed, Role, TextChannel } from "discord.js"
 
 export default{
 
@@ -37,6 +37,16 @@ export default{
             required: true,
         },
         {
+            name: "accès2",
+            description: "deuxième rôle ayant accès",
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.ROLE  
+        },
+        {
+            name: "accès3",
+            description: "troisième rôle ayant accès",
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.ROLE  
+        },
+        {
             name: "fichier",
             description: "le fichier en question",
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
@@ -51,14 +61,41 @@ export default{
 
         embed.setAuthor({name: interaction.member?.user.username??'', iconURL: interaction.user.avatarURL()??''})
 
+        const accessOne = (interaction.options.getRole("accès") as Role)
+        const accessTwo = (interaction.options.getRole("accès2") as Role)
+        const accessThree = (interaction.options.getRole("accès3") as Role)
+
         if(interaction.options.getString("type") == "defAC"){
             embed.setThumbnail("https://cdn3.emoji.gg/emojis/8383-blocked.png")
                  .setFields(
                     {
                         name: "Définition d'accès",
-                        value: "a"
+                        value: "Accès à :" + accessOne.name + ", " + accessTwo.name + "," + accessThree.name                  
                     }
                  )
+            
+            
+            if (interaction.channel!.isThread()) return;
+            
+            const cChannel = interaction.channel as TextChannel
+
+            cChannel.permissionOverwrites.edit((accessOne), {
+                SEND_MESSAGES: true,
+                VIEW_CHANNEL: true,
+            })
+            
+            cChannel.permissionOverwrites.edit(cChannel.guild.roles.everyone, {
+                VIEW_CHANNEL: false
+            })
+
+            
+           interaction.reply({
+            embeds: [embed]
+           })
+            
+            
+            
+
         }
 
         if(interaction.options.getString("type") == "askAC"){
