@@ -9,18 +9,19 @@ export default{
     testOnly: true,
     options : [
         {
-            name: "roll",
-            description: "Est-ce qu'un roll sera effectué ? Ce paramètre sera visible.",
-            type: DiscordJS.Constants.ApplicationCommandOptionTypes.BOOLEAN
-        },
-        {
             name: "data",
             description: "Masse de Data en Gb.",
             required: true,
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.INTEGER,
             max_value: 150,
 
-        }
+        },
+        {
+            name: "roll",
+            description: "Est-ce qu'un roll sera effectué ? Ce paramètre sera visible.",
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.BOOLEAN
+        },
+
     ],
 
     callback : async({interaction}) => {

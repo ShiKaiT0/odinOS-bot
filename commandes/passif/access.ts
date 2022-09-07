@@ -31,15 +31,17 @@ export default{
             ]
         },
         {
+            name: "accès",
+            description: "les rôles qui auront accès au channel. (faites /accesGuide)", // TODO: faire la commande expliquant comment ça marche.
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.ROLE,
+            required: true,
+        },
+        {
             name: "fichier",
             description: "le fichier en question",
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
         },
-        {
-            name: "accès",
-            description: "les rôles qui auront accès au channel. (faites /accesGuide)", // TODO: faire la commande expliquant comment ça marche.
-            required: true,
-        }
+
     ],
 
 
