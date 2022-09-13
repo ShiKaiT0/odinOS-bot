@@ -16,9 +16,15 @@ export default{
         },
         {
             name: "salonLogs",
-            description: "Le salon ou le log apparaîtra. Utilisez nolog si vous ne voulez pas.",
+            description: "Le salon ou le log apparaîtra. TOUJOURS sélectionner le bon.",
             required: true,
             type: ' ' // Channel.
+        },
+        {
+            name: "noLog",
+            description: "Ne pas afficher de logs RP",
+            required: false,
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.BOOLEAN,
         }
 
         
@@ -26,10 +32,16 @@ export default{
 
     callback: ({}) =>{
         
-
+        nolog = false
 
         if(1=1 /* Changer pour pas la perm */){
 
+
+            interaction.reply({
+                content: "Vous n'avez pas la permission nécessaire.",
+                ephemeral: true,
+            })
+            return
         }
 
         embed = new MessageEmbed()
@@ -37,6 +49,28 @@ export default{
         .setColor("DARK_RED")
         .setFooter({text:"Pour toute informations quant à ce message, contacter l'auteur et/ou l'administration à l'origine de l'action.",iconURL:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Galactic_Republic.svg/1024px-Galactic_Republic.svg.png"})
         .setDescription("Message Automatique d'Administration Système (MAAS)")
+        
+        if(nolog){
+            /**
+             * Supprimer le mess, envoyer un 
+             */
+        }else{
+            embed.setFields(
+                {
+                    name: "", // Nom de l'user
+                    value: "id du message delete",
+                }
+            )
+
+                // envoyer log dans channel donné
+                // Supprimer message
+
+                interaction.reply({
+                    embeds: [embed]
+                })
+
+            
+        }
 
     }
 
