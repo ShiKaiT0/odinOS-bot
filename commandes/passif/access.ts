@@ -3,6 +3,11 @@ import DiscordJS, { MessageEmbed, Role, TextChannel } from "discord.js"
 
 export default{
 
+    /**
+     * à faire: check pour la permission de gérer rôles
+     */
+
+
     category: "Rôle-Play",
     description: "Définir,demander ou retirer des accès aux fichiers.",
     slash: true,
