@@ -35,8 +35,8 @@ export default{
          */
 
 
-        embed = new MessageEmbed
-        .setAuthor({name: "Administration républicaine", iconURL: "https://static.wikia.nocookie.net/starwars/images/1/17/Coronet_cargo_manifest.png/revision/latest?cb=20120906220411"})
+        const embed = new MessageEmbed
+        embed.setAuthor({name: "Administration républicaine", iconURL: "https://static.wikia.nocookie.net/starwars/images/1/17/Coronet_cargo_manifest.png/revision/latest?cb=20120906220411"})
         .setColor("YELLOW")
         .setThumbnail("https://cdn-icons-png.flaticon.com/512/124/124837.png")
         .setTitle("Changement sur la base de données")

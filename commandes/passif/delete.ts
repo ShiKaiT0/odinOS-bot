@@ -10,15 +10,15 @@ export default{
     options: [
         {
             name: "message",
-            description: "Le message à supprimer",
+            description: "Le message à supprimer (id faire /guidedelete pour explication)",
             required: true,
-            type: ' ', // Vérifier si message est un type.
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
         },
         {
             name: "salonLogs",
             description: "Le salon ou le log apparaîtra. TOUJOURS sélectionner le bon.",
             required: true,
-            type: ' ' // Channel.
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL
         },
         {
             name: "noLog",
@@ -30,11 +30,11 @@ export default{
         
     ],
 
-    callback: ({}) =>{
+    callback: ({interaction}) =>{
         
-        nolog = false
+        let nolog = false
 
-        if(1=1 /* Changer pour pas la perm */){
+        if(1 == 1 /* Changer pour pas la perm */){
 
 
             interaction.reply({
@@ -44,7 +44,7 @@ export default{
             return
         }
 
-        embed = new MessageEmbed()
+        const embed = new MessageEmbed()
         .setAuthor({name: "Administration Républicaine", iconURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Galactic_Republic.svg/1200px-Galactic_Republic.svg.png"})
         .setColor("DARK_RED")
         .setFooter({text:"Pour toute informations quant à ce message, contacter l'auteur et/ou l'administration à l'origine de l'action.",iconURL:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Galactic_Republic.svg/1024px-Galactic_Republic.svg.png"})
