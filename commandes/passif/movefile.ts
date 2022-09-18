@@ -12,7 +12,7 @@ export default{
             name: "message",
             description: "message en question",
             required: true,
-            type: " ", // Voir si msg == type
+            type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING,
         },
         {
             name: "raison",

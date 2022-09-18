@@ -1,5 +1,5 @@
 import { ICommand } from "wokcommands";
-import DiscordJS, { MessageEmbed } from "discord.js"
+import DiscordJS, { MessageEmbed, Permissions } from "discord.js"
 
 
 export default{
@@ -15,13 +15,13 @@ export default{
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
         },
         {
-            name: "salonLogs",
+            name: "salonlogs",
             description: "Le salon ou le log apparaîtra. TOUJOURS sélectionner le bon.",
             required: true,
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.CHANNEL
         },
         {
-            name: "noLog",
+            name: "nolog",
             description: "Ne pas afficher de logs RP",
             required: false,
             type: DiscordJS.Constants.ApplicationCommandOptionTypes.BOOLEAN,
@@ -33,8 +33,12 @@ export default{
     callback: ({interaction}) =>{
         
         let nolog = false
+        const checkManageMessage = interaction.memberPermissions?.has("MANAGE_CHANNELS")
+        interaction.member
+        
+        
 
-        if(1 == 1 /* Changer pour pas la perm */){
+        if(1 == 1){
 
 
             interaction.reply({
